@@ -27,7 +27,7 @@ nav ul{
 </nav>
 <h1>Language</h1>
 <nav>
-    <ul>熟练掌握Python、C++，熟悉java，JavaScript，CSS，HTML等</ul>
+    <ul>熟悉C/C++、Python；熟练应用HTML、CSS、JavaScript、MySQL、PHP、Java； </ul>
 </nav>
 <h1>Reserach</h1>
 <nav>
@@ -35,6 +35,6 @@ nav ul{
 </nav>
 <h1>Tools</h1>
 <nav>
-    <ul>熟练掌握Git、Linux、TensorFlow、Sklearn、OpenCV等</ul>
+    <ul>熟练应用Git、TensorFlow、Django、Sklearn、Request、Selenium、Pygame；熟悉Linux常用命 令及其开发环境；</ul>
 </nav>
 
