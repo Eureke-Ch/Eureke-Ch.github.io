@@ -14,7 +14,7 @@
 </ul>
 <h4 id="3、实验结果"><a href="#3、实验结果" class="headerlink" title="3、实验结果"></a>3、实验结果</h4><p>&ensp;&ensp;第一个实验相对来说是比较简单的，需要修改的文件只有master.go, worker.go, rpc.go, RPC的使用也给出了例子，Map和Reduce函数的调用也给出了例子。</p>
 <p>&ensp;&ensp;除此之外，任务运行过程中还用到的库有strings，strings.FieldsFunc(contents, ff)可以将strings分割成单词组；json库，json.Encoder能够将key/value变成json文件，json.Decoder能够将json文件变成key/value对；</p>
-<p>实验通过截图<br><img src="../../../../../images/MIT6.824-Lab1.jpg"></p>
+<p>实验通过截图<br><img src="../../../../../images/MIT6.824-Lab1.png"></p>
 <h4 id="4、并发和容错"><a href="#4、并发和容错" class="headerlink" title="4、并发和容错"></a>4、并发和容错</h4><p>&ensp;&ensp;在Lab的实现过程中主要需要考虑两件事，一个是节点出错如何处理，另一个是多节点的并发问题；</p>
 <ul>
 <li><p>容错<br>对于第一个问题，我们在分配任务时，保存了每个任务被分配的时间，当发现有处理中的任务已经处理了很长时间还没反应，则需要将该任务重新分配给其他节点，并重置该任务的被分配时间。</p>
