@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>密码学简介 | 陈浩</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">密码学简介</h1><a id="logo" href="/.">陈浩</a><p class="description">Talk is cheap. Show me the code.</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">密码学简介</h1><div class="post-meta">2022-04-30</div><div class="post-content"><h4 id="1-密码学-cryptography-能够做什么？"><a href="#1-密码学-cryptography-能够做什么？" class="headerlink" title="1. 密码学(cryptography)能够做什么？"></a>1. 密码学(cryptography)能够做什么？</h4><p>&ensp;&ensp;密码学的常规应用包括密钥协商，加密传输，数字签名，匿名通信等，除此之外还包括安全多方计算，私有外包计算，零知识证明等；</p>
+<ul>
+<li><p>安全多方计算：</p>
+<p>  安全多方计算（Secure Muti-party Computation，简称MPC，亦可简称SMC或SMPC）问题首先由华裔计算机科学家、图领奖获得者姚期智教授于1982年提出，也就是为人熟知的百万富翁问题：两个争强好胜的富翁Alice和Bob在街头相遇，如何在不暴露各自财富的前提下比较出谁更富有？</p>
+<p>  以选举为例：A,B两个候选者，每个人都可以投票给一个候选者，且只能投票一次，最终获得票数最多的当选；但是再次过程中每个人并不暴露自己的投票情况，也不暴露最终每个候选者的得票情况；</p>
+<p>  形式化成数学表达为：F(x1, x2, …, xn)，即计算多方输入的输出，但并不暴露每个输入；</p>
+<p>  最简单，愚蠢的做法是利用一个可信的中间机构，每一方都把自己的输入传给中间机构，由中间机构来进行计算；</p>
+</li>
+</ul>
+<p><strong>密码学有一个非常核心的定理：即所有能够使用可信权威机构来实现的功能，都能够不使用可信权威机构来实现；</strong></p>
+<ul>
+<li><p>私有外包计算：</p>
+<p>  人们每天都会大量使用搜索引擎来进行查询搜索，但是并不希望暴露自己的搜索内容；用户可以将加密的搜索内容加密之后发给Google，Google直接在密文上进行运算，返回运算结果，用户解密之后可得搜索结果；</p>
+</li>
+</ul>
+<p><img src="../../../../../images/Cryptography1_poc.jpg"></p>
+<ul>
+<li><p>零知识证明：</p>
+<p>  证明者在不暴露任何信息的情况下，向验证者证明某种声明；以数独为例，A有某个数独问题的答案，需要向B证明自己知道该问题的答案，但并不希望暴露答案具体是什么？在该情景下的解决方案是，B指定某一行某一列或者某一个块，A将B指定数独位置的结果收集混合起来，展示给B看，如果是1~9则满足要求，否则不满足要求；B可以多次要求A进行展示，从而证明A确实知道数独的答案；</p>
+</li>
+</ul>
+<h4 id="2-密码学历史："><a href="#2-密码学历史：" class="headerlink" title="2. 密码学历史："></a>2. 密码学历史：</h4><p>&ensp;&ensp;密码学可以分成对称加密，非对称加密，后量子密码三个时期；1976年Whitfield Diffie 和 Martin Hellman 发表的论文New Directions in Cryptography之前全都是对称加密，即加密和解密都使用同一个密钥；1976年的论文里没有给出具体的算法，在1977年迅速提出了第一个非对称加密算法RSA，后续又提出了其他的非对称加密算法，所基于的主要数学难题为大数的质因子分解，离散对数的计算，椭圆曲线上离散对数的计算，如DH、ECDH、RSA、ECDSA。1997年 Peter W. Shor提出了一种量子计算机上的多项式时间复杂度的算法来计算这些数学难题，2006年召开了第一届后量子密码学大会（PQCrypto），量子安全的加密算法包括格密码学，编码密码学，多变量密码学，超奇异椭圆曲线同源密码学等。</p>
+<p>&ensp;&ensp;替换加密：包括凯撒加密（罗马时期），用新的字母替换原有字母，密钥空间为26！（2^88）；破解方案：唯密文攻击即可，由于英文中字母出现的频率是不一样的，因此可以统计单字母（unigram），双字母（bigram）的出现频率，从而将密文字母和明文字母配对即可；</p>
+<p><img src="../../../../../images/Cryptography1_pattack.jpg"></p>
+<p>&ensp;&ensp;由于凯撒密码及其容易破解，在16世纪的文艺复兴时期，vigener提出了新的加密方法，通过将消息m和密钥k相加后模26，就得到了密文c，解密就是用密文c和密钥k相减后模26即可。</p>
+<p><img src="../../../../../images/Cryptography1_vigener.png"></p>
+<p>&ensp;&ensp;vigener密码也是很容易被字符频率统计攻破，攻击者只需要猜测密钥的长度l，然后收集每隔l的字符统计其频率即可得到对应位置的密钥字符；</p>
+<p>&ensp;&ensp;在19实际的电气化时代，设计了电驱动的密码机，称为Rotor Machine（轴轮机），本质还是替换密码，不同的是密钥由Rotor机的磁片代替，然后每输入一个字符，磁片旋转一次。单磁片的Rotor机依然非常容易被字符频率统计破坏。二战时期有个非常有名的Rotor机称为Enigma，其有好几个磁片，分别以不同的频率旋转，磁片的初始设置即为密钥；</p>
+<p><img src="../../../../../images/Cryptography1_rotor.png"></p>
+<p>&ensp;&ensp;以上是古典密码学的内容，而现代密码学是一门非常严谨的学科，每种加密协议都有着严格的证明，为了保密的安全，各国都制定了各自的加密标准。</p>
+<h4 id="3-离散概率简介"><a href="#3-离散概率简介" class="headerlink" title="3. 离散概率简介"></a>3. 离散概率简介</h4><p>&ensp;&ensp;现代的密码学机制都有相应的证明过程，而这些证明过程都是建立在离散概率上的，因此这里简单介绍一下离散概率的相关知识。</p>
+<ul>
+<li><p>1）离散概率定义</p>
+<p>  有限集合U，例如：U={0, 1}^n</p>
+<p>  定义在U上的概率分布P是一个函数P:U = [0, 1]，P需要满足对于所有属于U的X，P(X)的和为1，即∑X∈U（P(X)）= 1；</p>
+<ul>
+<li><p>常见的概率分布有：</p>
+<p>  均匀分布：所有属于U的X的概率都是一样的，P(X) = 1/|U|;</p>
+<p>  点分布：除指定的X0之外其他所有属于U的X的概率都是零，而X0的分布P(X0)=1；</p>
+</li>
+</ul>
+</li>
+<li><p>2）事件</p>
+<p>  对于U的任意子集A，Pr[A] = ∑X∈A（P(X)）∈ [0,1]；集合A便被称之为事件；</p>
+</li>
+<li><p>3）两个事件的并的概率的上界</p>
+<p>  U的任意两个子集事件A1,A2并的概率一定小于等于A1的概率加上A2的概率。等号发生在两个事件的交集为0的情况下；</p>
+</li>
+</ul>
+<p><img src="../../../../../images/Cryptography1_unionbound.png"></p>
+<ul>
+<li><p>4）随机变量</p>
+<p>  随机变量X是一个函数：X:U -&gt; V，即随机变量X在U上可以诱导出V，其中V是随机变量X取值的地方，</p>
+</li>
+</ul>
+<p><img src="../../../../../images/Cryptography1_randomV.png"></p>
+<ul>
+<li><p>5）均匀随机变量</p>
+<p>  简单的说均匀随机变量R就是一个恒等函数，对所有属于U的X，都有R(X) = X；</p>
+<p>  假设我们定义一个有限集合U（U = {0, 1}^2），定义U的均匀随机变量r，再定义一个随机变量X = r1+r2，意思是X等于均匀随机变量的第一位和第二位的和，那么Pr[X = 2] = Pr[r = 11] = 1/4；</p>
+</li>
+</ul>
+<p><img src="../../../../../images/Cryptography1_UrandomV.png"></p>
+<ul>
+<li><p>6）随机算法</p>
+<p>  确定性算法：对于同样的输入m，不论运行多少次都得到相同的输出y；y &lt;- A(m)；</p>
+<p>  随机算法：和确定性算法不同，随机算法除了输入m之外还有一个均匀随机变量r，算法每次运行的时候，r都重新进行取样；所以算法每次运行得到的输出都是不同的；<br>  y &lt;- A(m, r) 其中r &lt;-R- {0, 1}^n；也可以表示成y &lt;-R- A(m)；</p>
+</li>
+</ul>
+<p><img src="../../../../../images/Cryptography1_randomA.png"></p>
+<ul>
+<li><p>7）独立性</p>
+<p>  事件A,B是独立的，代表Pr[A and B] = Pr[A]*Pr[B]；<br>  都在V上取值的随机变量X,Y是独立的，代表Pr[X = a and Y= b] = Pr[X = a]*Pr[Y = b]</p>
+</li>
+</ul>
+<p><img src="../../../../../images/Cryptography1_Independence.png"></p>
+<ul>
+<li><p>8）异或XOR</p>
+<p>  相同的位为0，不同的位为1；</p>
+<p>  异或一个非常重要的性质，证明见下图：</p>
+<p>  对任意的一个定义在{0,1}^n上的随机变量Y，假设X是一个独立的均匀分布的随机变量X（不是均匀随机变量），那么对于Z := X xor Y，Z 一定也是一个均匀随机变量；</p>
+</li>
+</ul>
+<p><img src="../../../../../images/Cryptography1_xor.png"></p>
+<ul>
+<li><p>9）生日悖论</p>
+<p>  对于n个均匀随便变量，当n等于有限集合U的数量的1/2次方乘以1.2时，这n个均匀随机变量重复的概率超过了1/2；</p>
+<p>  一年365天，有23个人，（23 约等于 1.2*365^0.5），那么这23个人生日重复的概率超过1/2，当有60个人时，生日重复的概率超过90%；</p>
+</li>
+</ul>
+<p><img src="../../../../../images/Cryptography1_birthdayattack.png"><br><img src="../../../../../images/Cryptography1_birthdaysamples.png"></p>
+<h4 id="4-参考"><a href="#4-参考" class="headerlink" title="4. 参考"></a>4. 参考</h4><p>[1] <a target="_blank" rel="noopener" href="http://redisbook.com/">http://redisbook.com/</a><br>[2] <a target="_blank" rel="noopener" href="https://pdai.tech/md/db/nosql-redis/">https://pdai.tech/md/db/nosql-redis/</a><br>[3] <a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000040102333">https://segmentfault.com/a/1190000040102333</a><br>[4] <a target="_blank" rel="noopener" href="https://limuzhi.com/2017/11/18/cardinality-counting/">https://limuzhi.com/2017/11/18/cardinality-counting/</a></p>
+</div><div class="tags"><a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/"><i class="fa fa-tag"></i>密码学</a></div><div class="post-nav"><a class="next" href="/2022/03/22/2022.1-6/Redis%E6%8C%81%E4%B9%85%E5%8C%96/">Redis持久化</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://Eureke-ch.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/MIT6-824/" style="font-size: 15px;">MIT6.824</a> <a href="/tags/Concurrence/" style="font-size: 15px;">Concurrence</a> <a href="/tags/Go/" style="font-size: 15px;">Go</a> <a href="/tags/sync/" style="font-size: 15px;">sync</a> <a href="/tags/HTTP/" style="font-size: 15px;">HTTP</a> <a href="/tags/HTTPS/" style="font-size: 15px;">HTTPS</a> <a href="/tags/TLS/" style="font-size: 15px;">TLS</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 15px;">技术</a> <a href="/tags/Ipv6/" style="font-size: 15px;">Ipv6</a> <a href="/tags/zmap/" style="font-size: 15px;">zmap</a> <a href="/tags/scan6/" style="font-size: 15px;">scan6</a> <a href="/tags/MapReduce/" style="font-size: 15px;">MapReduce</a> <a href="/tags/RPC/" style="font-size: 15px;">RPC</a> <a href="/tags/apt/" style="font-size: 15px;">apt</a> <a href="/tags/apt-get/" style="font-size: 15px;">apt-get</a> <a href="/tags/dpkg/" style="font-size: 15px;">dpkg</a> <a href="/tags/zsh/" style="font-size: 15px;">zsh</a> <a href="/tags/tmux/" style="font-size: 15px;">tmux</a> <a href="/tags/terminator/" style="font-size: 15px;">terminator</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 15px;">虚拟机</a> <a href="/tags/VMware/" style="font-size: 15px;">VMware</a> <a href="/tags/ssh/" style="font-size: 15px;">ssh</a> <a href="/tags/Proxy/" style="font-size: 15px;">Proxy</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/GitHub-Pages/" style="font-size: 15px;">GitHub-Pages</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 15px;">博客</a> <a href="/tags/%E8%B7%B3%E8%B7%83%E8%A1%A8/" style="font-size: 15px;">跳跃表</a> <a href="/tags/Redis/" style="font-size: 15px;">Redis</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">深度学习</a> <a href="/tags/%E9%95%BF%E6%96%87/" style="font-size: 15px;">长文</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 15px;">密码学</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/04/30/2022.1-6/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AE%80%E4%BB%8B/">密码学简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/22/2022.1-6/Redis%E6%8C%81%E4%B9%85%E5%8C%96/">Redis持久化</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/21/2022.1-6/Redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">Redis数据类型</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/20/2022.1-6/Redis%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4(%E5%8D%95%E6%9C%BA)/">Redis常用命令(单机)</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/17/2022.1-6/%E8%B7%B3%E8%B7%83%E8%A1%A8%E7%AE%80%E4%BB%8B/">跳跃表(Skip List)简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/11/03/2021.10-12/MIT6.824Lab1/">MIT6.824Lab1</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/11/01/2021.10-12/Go%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B_%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98/">Go内存模型(并发问题)</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/10/29/2021.10-12/dpkg%E8%A2%AB%E5%8F%A6%E5%A4%96%E7%9A%84%E8%BF%9B%E7%A8%8B%E9%94%81%E4%BD%8F/">dpkg被另外的进程锁住</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/10/16/2021.10-12/HTTP%E5%88%B0HTTPS%E7%9A%84%E6%BC%94%E5%8C%96/">从HTTP到HTTPS的演化</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/10/07/2021.10-12/Ipv6%E4%B8%8EIpv6%E6%89%AB%E6%8F%8F/">Ipv6和Ipv6扫描</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/Eureke-Ch" title="Github" target="_blank">Github</a><ul></ul><a href="https://leetcode-cn.com/u/eureke/" title="Leetcode" target="_blank">Leetcode</a><ul></ul><a href="https://www.kaggle.com/ygqodl" title="Kaggle" target="_blank">Kaggle</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2022 <a href="/." rel="nofollow">陈浩.</a> Powered by<a rel="nofollow" target="_blank" href="https://eureke-ch.github.io/"> Chenhao.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://eureke-ch.github.io/"> Ch.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js" successtext="复制成功!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
