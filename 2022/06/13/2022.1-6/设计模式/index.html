@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>设计模式 | 陈浩</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">设计模式</h1><a id="logo" href="/.">陈浩</a><p class="description">Talk is cheap. Show me the code.</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">设计模式</h1><div class="post-meta">2022-06-13</div><div class="post-content"><h4 id="1、什么是设计模式"><a href="#1、什么是设计模式" class="headerlink" title="1、什么是设计模式"></a>1、什么是设计模式</h4><p>&ensp;&ensp;&ensp;&ensp;设计模式就是软件设计中常见问题的典型解决方案，就像是预支的蓝图，可以对其进行自定义以解决代码中反复出现的设计问题。</p>
+<p>&ensp;&ensp;&ensp;&ensp;1994年四位作者Erich Gamma、John Vlissides、Ralph Johnson 和 Richard Helm出版了《设计模式：可重用的面向对象软件的元素》。这本书中提出了23种设计模式，由于其名字很长，人们一般称之为“四人组的数”，也称”GoF书“；</p>
+<p>&ensp;&ensp;&ensp;&ensp;一个对设计模式介绍比较详细深入的网站<a target="_blank" rel="noopener" href="https://refactoring.guru/design-patterns%EF%BC%8C%E8%BF%99%E7%AF%87%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%BE%88%E5%A4%9A%E5%86%85%E5%AE%B9%E9%83%BD%E6%9C%89%E5%8F%82%E8%80%83%E8%AF%A5%E7%BD%91%E7%AB%99%EF%BC%8C%E5%86%99%E8%BF%99%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%9B%B4%E5%A4%9A%E6%98%AF%E4%B8%AA%E4%BA%BA%E5%AF%B9%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%B8%80%E4%B8%AA%E6%A2%B3%E7%90%86%E7%9A%84%E6%80%BB%E7%BB%93%EF%BC%9B">https://refactoring.guru/design-patterns，这篇博客的很多内容都有参考该网站，写这篇博客更多是个人对设计模式的一个梳理的总结；</a></p>
+<p>&ensp;&ensp;&ensp;&ensp;设计模式可以按照其意图或目的来进行分类，本书主要涵盖了三组主要的模式：</p>
+<ul>
+<li>创建模式：提供了对象的创建机制，增加了现有代码的灵活性和重用性；</li>
+<li>结构模式：解释了如何将对象和类组装成更大的结构，同时保持结构的灵活性和效率；</li>
+<li>行为模式：负责对象之间的有效沟通和指责分配；</li>
+</ul>
+<p>&ensp;&ensp;&ensp;&ensp;每种类型的设计模式又可以根据具体的情景分成不同具体的类型，如下图所示：</p>
+<p><img src="../../../../../images/design_pattern.png"></p>
+<p>&ensp;&ensp;&ensp;&ensp;设计模式主要遵循的两个原则，一个是开闭原则，即对拓展开放，对修改关闭；另一个是单一职责原则，即一个设计模式只解决一个问题；</p>
+<h4 id="2、创建模式"><a href="#2、创建模式" class="headerlink" title="2、创建模式"></a>2、创建模式</h4><ol>
+<li><p>工厂方法模式</p>
+<ul>
+<li><p>问题：真实场景中，会存在很多类型的产品，这些产品可以通过继承父类来拓展成不同的子类（animal，dog，cat）。如果是通过new来创建对象，当增加新的产品类型时，不可避免的需要修改代码，这违反了开闭原则；</p>
+</li>
+<li><p>解决方案：使用工厂方法来创建对象，将不同产品的创建交给不同的工厂对象来实现，不再使用一个工厂完成所有产品的创建；工厂不仅负责产品的创建，还负责产品的核心逻辑处理，这样可以复用产品的处理代码，而不用每一个产品都重新实现一遍处理逻辑；</p>
+</li>
+</ul>
+<p> <img src="../../../../../images/factory.png"></p>
+</li>
+</ol>
+<pre><code>* 使用场景：
+
+    * 在编写代码时，无法预知对象的确切类别或依赖关系，可以使用工厂方法将对象的创建和使用代码分离；
+    * 希望用户能够拓展软件库或框架的内部组件；
+    * 希望能够复用现有对象来节省系统资源，而不是每次都创建新对象；
+</code></pre>
+<ol start="2">
+<li><p>抽象工厂模式</p>
+<ul>
+<li>问题：当需要生产一系列风格相同的产品时，需要保证产品的风格相同；</li>
+<li>解决方案：将产品的生产交给工厂，每类工厂负责固定风格的产品；</li>
+</ul>
+<p> <img src="../../../../../images/abstrace_factory.png"></p>
+</li>
+<li><p>生成器模式</p>
+<ul>
+<li>问题：当对象非常复杂时，对象的构造需要对繁多的成员变量和嵌套的对象进行初始化，同时由于需求不同，这些成员变量和嵌套的对象的初始化是可选的；</li>
+<li>解决方案：将对象的构造代码抽取出来，放在一个独立的生成器对象中；同时可以将用于创建产品的生成步骤独立出来，用主管类来控制；</li>
+</ul>
+<p> <img src="../../../../../images/generator.png"></p>
+<ul>
+<li>使用场景：<ul>
+<li>对象较为复杂时，不希望导致大量重叠的构造函数；</li>
+<li>希望创建不同类型的产品，产品的构造流程相似，但细节上有区别；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="4">
+<li><p>原型模式</p>
+<ul>
+<li>问题：如果只有一个对象，希望生成一个完全相同的对象；但很多时候对象内部的成员变量是对外不可见的，或者对象所属的类不可见；</li>
+<li>解决方案：在原型中增添一个克隆方法，返回一个与当前对象完全一样的新对象；</li>
+</ul>
+<p> <img src="../../../../../images/prototype.png"></p>
+<ul>
+<li><p>适用场景：</p>
+<ul>
+<li>希望能够复制对象，又希望这些对象能够独立所属的类；</li>
+<li>当子类的区别仅在于对象的初始化方式，可以通过预生成的一系列对象来减少子类的数量；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>单例模式</p>
+<ul>
+<li>问题：不希望一个类有多个实例，同时还要为该实例提供全局访问节点；</li>
+<li>解决方案：将默认的构造函数设为私有，同时新建一个静态成员函数作为构造函数，该函数调用私有构造函数来实现初始化；</li>
+</ul>
+</li>
+</ol>
+<h4 id="3、结构型模式"><a href="#3、结构型模式" class="headerlink" title="3、结构型模式"></a>3、结构型模式</h4><ol>
+<li><p>适配器模式</p>
+<ul>
+<li>问题：两个对象的格式不一样，相互之间无法调用；</li>
+<li>解决方案：新建一个适配器对象，在两个对象之间进行格式转换；</li>
+</ul>
+</li>
+<li><p>桥接模式</p>
+<ul>
+<li><p>问题：在继承时，多个维度上的子类同时糅合在一起，导致需要为每个维度上的子类两两组合；（各个设备和各个设备控制器；）</p>
+</li>
+<li><p>解决方案：将某些维度的子类抽取成独立的抽象类，各不同的子类仅是抽象类的不同实现，从而在对象中直接引用抽象类；</p>
+</li>
+<li><p>适用场景：</p>
+<ul>
+<li>拆分或重组一个具有多重功能的庞杂类；</li>
+<li>在几个独立的维度上拓展一个类</li>
+<li>在运行时切换不同的实现方式</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>组合模式</p>
+<ul>
+<li>问题：对于树状结构对象，即当一个对象包含成员及同类对象，如何对该对象进行处理；例如盒子中有物品和其他盒子；（组合图形的绘制）</li>
+<li>解决方案：实现一个通用的接口，不管是什么对象，直接调用接口即可；</li>
+</ul>
+<p> <img src="../../../../../images/component.png"></p>
+</li>
+<li><p>装饰模式</p>
+<ul>
+<li>问题：希望在不需要更改代码的情况下使用对象，同时需要为对象增添新行为；或者无法通过继承修改类的行为；（数据的写入和读取，写入之前时候加密和压缩）</li>
+<li>解决方案：封装器是装饰模式的别名，即通过设计与原始对象相同接口的封装器类，并在该类中调用原始对象；</li>
+</ul>
+</li>
+<li><p>外观模式</p>
+<ul>
+<li>问题：用到了复杂的第三方库或框架中的对象，但客户只需要使用其中部分功能；（视频的下载和观看）</li>
+<li>解决方案：创建外观类，对外提供统一的接口；</li>
+</ul>
+</li>
+<li><p>享元模式</p>
+<ul>
+<li>问题：程序需要类型相似的巨量对象，同时在各个对象中存在大量的重复状态；（游戏中粒子的颜色模式都是相似的）</li>
+<li>解决方案：对于重复的状态不存放在对象中，而是存放在一个单独的对象中；</li>
+</ul>
+</li>
+<li><p>代理模式</p>
+<ul>
+<li>问题： 延迟初始化，访问控制，远程调用，请求结果缓存</li>
+<li>解决方案：建立与原对象具有相同接口的代理类，客户端代码直接使用代理类对象即可；</li>
+</ul>
+</li>
+</ol>
+<h4 id="4、行为模式"><a href="#4、行为模式" class="headerlink" title="4、行为模式"></a>4、行为模式</h4><p>行为模式包括责任链模式（在线订购系统的验证授权），命令模式（文字编辑器按钮的各种功能），迭代器模式（集合元素的访问），中介者模式（UI组件），备忘录模式（文件的撤销功能），观察者模式（消息队列的订阅和发布），状态模式（有限状态机），策略模式（地图路线选择），模板方法模式（文件的处理中大量相似的算法），访问者模式（文件导出）；</p>
+<h4 id="5、参考"><a href="#5、参考" class="headerlink" title="5、参考"></a>5、参考</h4><p>[1] <a target="_blank" rel="noopener" href="https://refactoring.guru/design-patterns">https://refactoring.guru/design-patterns</a></p>
+</div><div class="tags"><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><i class="fa fa-tag"></i>设计模式</a><a href="/tags/%E7%B1%BB/"><i class="fa fa-tag"></i>类</a><a href="/tags/%E5%AF%B9%E8%B1%A1/"><i class="fa fa-tag"></i>对象</a></div><div class="post-nav"><a class="next" href="/2022/05/31/2022.1-6/C%E5%92%8CC++%E7%9A%84IO%E5%BA%93/">C的IO库</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://Eureke-ch.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/MIT6-824/" style="font-size: 15px;">MIT6.824</a> <a href="/tags/Concurrence/" style="font-size: 15px;">Concurrence</a> <a href="/tags/Go/" style="font-size: 15px;">Go</a> <a href="/tags/sync/" style="font-size: 15px;">sync</a> <a href="/tags/HTTP/" style="font-size: 15px;">HTTP</a> <a href="/tags/HTTPS/" style="font-size: 15px;">HTTPS</a> <a href="/tags/TLS/" style="font-size: 15px;">TLS</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 15px;">技术</a> <a href="/tags/Ipv6/" style="font-size: 15px;">Ipv6</a> <a href="/tags/zmap/" style="font-size: 15px;">zmap</a> <a href="/tags/scan6/" style="font-size: 15px;">scan6</a> <a href="/tags/MapReduce/" style="font-size: 15px;">MapReduce</a> <a href="/tags/RPC/" style="font-size: 15px;">RPC</a> <a href="/tags/apt/" style="font-size: 15px;">apt</a> <a href="/tags/apt-get/" style="font-size: 15px;">apt-get</a> <a href="/tags/dpkg/" style="font-size: 15px;">dpkg</a> <a href="/tags/zsh/" style="font-size: 15px;">zsh</a> <a href="/tags/tmux/" style="font-size: 15px;">tmux</a> <a href="/tags/terminator/" style="font-size: 15px;">terminator</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" style="font-size: 15px;">虚拟机</a> <a href="/tags/VMware/" style="font-size: 15px;">VMware</a> <a href="/tags/ssh/" style="font-size: 15px;">ssh</a> <a href="/tags/Proxy/" style="font-size: 15px;">Proxy</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/GitHub-Pages/" style="font-size: 15px;">GitHub-Pages</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 15px;">博客</a> <a href="/tags/%E8%B7%B3%E8%B7%83%E8%A1%A8/" style="font-size: 15px;">跳跃表</a> <a href="/tags/Redis/" style="font-size: 15px;">Redis</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">深度学习</a> <a href="/tags/%E9%95%BF%E6%96%87/" style="font-size: 15px;">长文</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 15px;">密码学</a> <a href="/tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%8E%9F%E7%90%86/" style="font-size: 15px;">经济学原理</a> <a href="/tags/%E6%9B%BC%E6%98%86/" style="font-size: 15px;">曼昆</a> <a href="/tags/Users-Groups/" style="font-size: 15px;">Users/Groups</a> <a href="/tags/C/" style="font-size: 15px;">C++</a> <a href="/tags/IO%E5%BA%93/" style="font-size: 15px;">IO库</a> <a href="/tags/CMake/" style="font-size: 15px;">CMake</a> <a href="/tags/C/" style="font-size: 15px;">C</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 15px;">设计模式</a> <a href="/tags/%E7%B1%BB/" style="font-size: 15px;">类</a> <a href="/tags/%E5%AF%B9%E8%B1%A1/" style="font-size: 15px;">对象</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/06/13/2022.1-6/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/31/2022.1-6/C%E5%92%8CC++%E7%9A%84IO%E5%BA%93/">C的IO库</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/17/2022.1-6/Linux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E7%94%A8%E6%88%B7%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E7%9A%84%E7%AE%A1%E7%90%86/">Linux系统下用户和用户组的管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/08/2022.1-6/%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%8D%81%E5%A4%A7%E5%8E%9F%E7%90%86/">经济学十大原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/07/2022.1-6/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%9B%B8%E5%85%B3%E6%95%B0%E8%AE%BA/">密码学相关数论</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/04/30/2022.1-6/%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AE%80%E4%BB%8B/">密码学简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/22/2022.1-6/Redis%E6%8C%81%E4%B9%85%E5%8C%96/">Redis持久化</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/21/2022.1-6/Redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">Redis数据类型</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/20/2022.1-6/Redis%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4(%E5%8D%95%E6%9C%BA)/">Redis常用命令(单机)</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/03/17/2022.1-6/%E8%B7%B3%E8%B7%83%E8%A1%A8%E7%AE%80%E4%BB%8B/">跳跃表(Skip List)简介</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/Eureke-Ch" title="Github" target="_blank">Github</a><ul></ul><a href="https://leetcode-cn.com/u/eureke/" title="Leetcode" target="_blank">Leetcode</a><ul></ul><a href="https://www.kaggle.com/ygqodl" title="Kaggle" target="_blank">Kaggle</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2022 <a href="/." rel="nofollow">陈浩.</a> Powered by<a rel="nofollow" target="_blank" href="https://eureke-ch.github.io/"> Chenhao.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://eureke-ch.github.io/"> Ch.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js" successtext="复制成功!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
